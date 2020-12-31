@@ -1,8 +1,9 @@
+require("dotenv").config();
 const jwt = require("jsonwebtoken");
 // modules
 const response = require("./response");
 
-module.exports = (req, res, next) => {
+const verifyToken = (req, res, next) => {
     let token = req.header("auth-token");
     if (!token) return response.failed(req, res, next, 401, "Access denied!");
     try {
@@ -12,4 +13,8 @@ module.exports = (req, res, next) => {
     } catch (err) {
         response.failed(req, res, next, 400, "Invalid token");
     }
+}
+
+module.exports = {
+    verifyToken,
 }
