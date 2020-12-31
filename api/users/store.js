@@ -1,11 +1,15 @@
 const User = require("./model");
+const bcrypt = require("bcryptjs");
 
 const createUser = async (data) => {
+    let salt = await bcrypt.genSalt(10);
+    let hashedPass = await bcrypt.hash(data.password, salt);
     let user = await new User({
         userName: data.userName,
         fullName: data.fullName,
         phoneNumber: data.phoneNumber,
         email: data.email,
+        password: hashedPass
     });
     user.save();
     return user;
