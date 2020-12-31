@@ -1,5 +1,8 @@
-const User = require("./model");
+require("dotenv").config();
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+// modules
+const User = require("./model");
 
 const createUser = async (data) => {
     let salt = await bcrypt.genSalt(10);
@@ -30,6 +33,24 @@ const deleteUser = async (userID) => {
     return {message: "Deleted user!"}
 }
 
+const authenticateUser = async (data) => {
+    let user = await User.findOne({ email: data.email});
+    if (!user) {
+        throw Error({ message: "Invalid password" });
+    }
+    let passValidation = await bcrypt.compare(data.password, user.password);
+    if (!passValidation) {
+        throw Error({ message: "No user is registered with this email" });
+    }
+    let token = jwt.sign({ _id: user.id }, process.env.SECRET_TOKEN);
+    return { token: token };
+}
+
+const userProfile = async (userData) => {
+    let user = await User.findOne({ _id: userData._id });
+    return user;
+}
+
 module.exports = {
-    createUser, listUsers, getUser, deleteUser
+    createUser, listUsers, getUser, deleteUser, authenticateUser, userProfile
 }
