@@ -5,11 +5,8 @@ const controller = require("./controller");
 const router = express.Router();
 
 router.get("/", controller.list);
-
-router.post("/", controller.create);
-
+router.post("/signup", controller.create);
 router.get("/:userID", controller.retrieve);
-
 router.delete("/:userID", controller.delete);
 
 module.exports = router;
