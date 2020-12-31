@@ -1,24 +1,15 @@
 const express = require("express");
+//modules
+const controller = require("./controller");
 // Route instance
 const router = express.Router();
 
-router.get("/", (req, res, next) => {
-  res.status(200);
-  res.send({message: "GET Users"});
-});
+router.get("/", controller.list);
 
-router.post("/", (req, res, next) => {
-  let data = {
-    name: req.body.name,
-    age: req.body.age
-  };
-  res.status(201);
-  res.send(data);
-});
+router.post("/", controller.create);
 
-router.get("/:userID", (req, res, next) => {
-  res.status(200);
-  res.send({message: "GET User", id: req.params.userID});
-})
+router.get("/:userID", controller.retrieve);
+
+router.delete("/:userID", controller.delete);
 
 module.exports = router;
