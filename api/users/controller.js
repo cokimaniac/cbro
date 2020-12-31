@@ -34,9 +34,29 @@ const removeUser = async (req, res, next) => {
     }
 }
 
+const loginUser = async (req, res, next) => {
+    try {
+        let user = await store.authenticateUser(req.body);
+        response.success(req, res, next, 202, user, "[authentication] User authenticated!");
+    } catch (err) {
+        response.failed(req, res, next, 404, "No user found");
+    }
+}
+
+const signProfile = async (req, res, next) => {
+    try {
+        let user = await store.userProfile(req.user);
+        response.success(req, res, next, 200, user);
+    } catch (err) {
+        response.failed(req, res, next, 404, "Credentials are needed!");
+    }
+}
+
 module.exports = {
     list: getUsers,
     create: createUser,
     retrieve: getUser,
     delete: removeUser,
+    login: loginUser,
+    profile: signProfile
 }
