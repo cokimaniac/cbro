@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 
-let userSchema = new mongoose.Schema({
+const { Schema } = mongoose;
+
+let userSchema = new Schema({
     fullName: {
         type: String,
         required: true,
@@ -19,7 +21,11 @@ let userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    debtors: [{
+        type: Schema.Types.ObjectId,
+        ref: "Debtor"
+    }]
 });
 
 module.exports = mongoose.model("User", userSchema);
