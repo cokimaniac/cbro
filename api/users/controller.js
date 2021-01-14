@@ -56,7 +56,7 @@ module.exports = {
     list: getUsers,
     create: createUser,
     retrieve: getUser,
-    delete: removeUser,
+    remove: removeUser,
     login: loginUser,
     profile: signProfile
 }
