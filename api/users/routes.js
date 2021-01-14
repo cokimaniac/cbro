@@ -1,19 +1,21 @@
 const express = require("express");
 //modules
-const controller = require("./controller");
+const {
+  list , profile, retrieve, remove, create, login
+} = require("./controller");
 const { verifyToken } = require("../../network/middleware");
 // Route instance
 const router = express.Router();
 
 // requires authorization token
-router.get("/", verifyToken, controller.list);
-router.get("/profile", verifyToken, controller.profile);
-router.get("/:userID", verifyToken, controller.retrieve);
-router.delete("/:userID", verifyToken, controller.delete);
+router.get("/", verifyToken, list);
+router.get("/profile", verifyToken, profile);
+router.get("/:userID", verifyToken, retrieve);
+router.delete("/:userID", verifyToken, remove);
 
 // public routes
-router.post("/signup", controller.create);
-router.post("/login", controller.login);
+router.post("/signup", create);
+router.post("/login", login);
 
 
 module.exports = router;
