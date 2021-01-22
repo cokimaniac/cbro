@@ -42,7 +42,7 @@ const authenticateUser = async (data) => {
     if (!passValidation) {
         throw Error({ message: "No user is registered with this email" });
     }
-    let token = jwt.sign({ _id: user.id }, process.env.SECRET_TOKEN);
+    let token = jwt.sign({ _id: user.id }, process.env.SECRET_TOKEN, { expiresIn: "7d"});
     return { token: token };
 }
 
