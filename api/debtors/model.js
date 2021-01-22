@@ -5,11 +5,14 @@ const { Schema } = mongoose;
 let ammountSchema = new Schema({
   money: {
     type: Number,
-    require: true
+    required: true
+  },
+  paid: {
+    type: Boolean,
   },
   debtPeriod: {
     type: Number,
-    require: true
+    required: true
   },
   debtDate: {
     type: Date
@@ -22,14 +25,14 @@ let ammountSchema = new Schema({
 let debtorSchema = new Schema({
   fullName: {
     type: String,
-    require: true,
+    required: true,
   },
   email: {
     type: String
   },
   phoneNumber: {
     type:String,
-    require: true
+    required: true
   },
   ammounts: [ammountSchema]
 }, { timestamps: true });
