@@ -2,8 +2,7 @@ const User = require("../users/model");
 const { Debtor, Ammount } = require("./model");
 
 const listDebtors = async (currentUser) => {
-  let debtors = await User.findOne({ _id: currentUser._id })
-  .populate("debtors");
+  let debtors = await User.findOne({ _id: currentUser._id }).populate("debtors")
   return debtors.debtors;
 }
 
