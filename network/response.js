@@ -6,7 +6,7 @@ module.exports = {
     },
     failed: (req, res, next, status, message, log=null) => {
         res.status(status || 404);
-        res.send({ error: message });
+        res.send({ error: message, status: status });
         log === null ? "" : console.log(log);
     }
 }
