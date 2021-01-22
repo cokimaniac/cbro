@@ -9,6 +9,7 @@ let ammountSchema = new Schema({
   },
   paid: {
     type: Boolean,
+    default: false
   },
   debtPeriod: {
     type: Number,
