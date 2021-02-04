@@ -19,10 +19,14 @@ const createDebtor = async (body, currentUser) => {
   return debtor;
 }
 
+const retrieveDebtor = async (debtorId) => {
+  let debtor = await Debtor.findOne({ _id: debtorId });
+  return debtor;
+}
+
 const listDebtorAmmounts = async (debtorID) => {
-  let debtor = await Debtor.findOne({ _id: debtorID });
-  let ammounts = debtor.ammounts;
-  return ammounts;
+  let debtor = await Debtor.findOne({ _id: debtorID }).populate("ammounts");
+  return debtor.ammounts;
 }
 
 const addDebtorAmmount = async (debtorID, body, currentUser) => {
@@ -43,8 +47,20 @@ const addDebtorAmmount = async (debtorID, body, currentUser) => {
   return ammount;
 }
 
-module.exports = {
-  listDebtors, createDebtor,
-  listDebtorAmmounts, addDebtorAmmount,
+const retrieveDebtorAmmount = async (debtorID, ammountID) => {
+  let debtor = await Debtor.findOne({ _id: debtorID });
+  let ammount = debtor.ammounts.filter(item => item._id == ammountID);
+  return ammount[0];
+}
 
+const updateDebtorAmmount = async (params) => {
+  let ammount = Ammount({ _id: params.ammountID });
+  ammount.paid = params.paid;
+  ammount.save();
+  return ammount;
+}
+
+module.exports = {
+  listDebtors, createDebtor, retrieveDebtor,
+  listDebtorAmmounts, addDebtorAmmount, retrieveDebtorAmmount, updateDebtorAmmount,
 }
