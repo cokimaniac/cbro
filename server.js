@@ -26,27 +26,14 @@ io.on("connect", (socket) => {
 
 const getInfo = () => {
     return [
-        {
-            name: "Jorge Luis",
-            age: 29
-        },
-        {
-            name: "Lucas Jorge",
-            age: 3
-        },
-        {
-            name: "Marisela",
-            age: 29
-        },
-        {
-            name: "Jorge Dalmiro",
-            age: 64
-        },
-        {
-            name: "Nancy Gladys",
-            age: 62
-        }
-    ];
-}
+	{
+		name: "John",
+		age: 23,
+	},
+	{
+		name: "Dorothy",
+		age: 36
+	},
+    ]
 
 server.listen(config.port, () => console.log(`Server running at ${config.host}:${config.port}`));
